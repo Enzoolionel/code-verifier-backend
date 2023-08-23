@@ -1,23 +1,18 @@
-import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv"; 
+import server from "./src/server";
+import { LogError, LogSuccess } from "./src/utils/logger";
 
 // configuracion de archivo .env
 dotenv.config();
 
-// creando app 
-const app: Express = express();
-
 // process accede al .env 
 const PORT: string | number = process.env.PORT || 8000;
 
-// definir ruta de aplicacion principal /
-app.get("/", (req: Request, res: Response) => {
-    res.send("hola desde res");
-});
-
-app.get("/enzo", (req: Request, res: Response) => {
-    res.send("hola Enzo");
-});
-
 // ejecutar la app / escuchar
-app.listen(PORT, () => console.log(`Holis desde listen en puerto:http://localhost:${PORT}`))
+server.listen(PORT, () => {
+    LogSuccess(`Servidor levantado en http://localhost:${PORT}/api`)
+});
+
+server.on('error', err => {
+    LogError(`Server error ${err}`)
+})

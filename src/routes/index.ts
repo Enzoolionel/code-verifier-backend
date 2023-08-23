@@ -5,7 +5,7 @@
 
 import express, { Request, Response} from 'express';
 import helloRouter from './HelloRouter';
-import { LogInfo } from '@/utils/logger';
+import { LogInfo } from '../utils/logger';
 
 // instanciando el servidor
 let server = express();
@@ -23,7 +23,7 @@ rootRouter.get("/", (req: Request, res: Response) => {
 
 // redireccionamiento de rutas y controladores
 server.use('/', rootRouter); //localhost:/api/
-server.use('hello', helloRouter); //localhost:/api/hello
+server.use('/hello', helloRouter); //localhost:/api/hello
 // aca aderimos mas rutas
 
 export default server;
