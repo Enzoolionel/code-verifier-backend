@@ -21,6 +21,9 @@ server.use(
     router
     );
 
+//static server
+server.use(express.static('public'));
+
 // TODO: mongo conexion
 
 
