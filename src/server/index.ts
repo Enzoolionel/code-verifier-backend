@@ -1,6 +1,9 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
+import mongoose, { Mongoose } from "mongoose";
 
+// swagger
+import swaggerUI from "swagger-ui-express";
 
 
 import cors from 'cors';
@@ -16,6 +19,19 @@ dotenv.config()
 
 const server: Express = express();
 
+
+// configuracion para usar swagger
+server.use(
+    '/docs',
+    swaggerUI.serve,
+    swaggerUI.setup(undefined, {
+        swaggerOptions:{
+            url: "/swagger.json",
+            explorer: true
+        }
+    })
+);
+
 server.use(
     '/api',
     router
@@ -25,6 +41,7 @@ server.use(
 server.use(express.static('public'));
 
 // TODO: mongo conexion
+mongoose.connect('mongodb://localhost:27017/');
 
 
 server.use(helmet());
